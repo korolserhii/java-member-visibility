@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 — 2026-10-28
+
+- Extension icon restored.
+
 ## 0.1.1 — 2026-10-28
 
 - Public repository and issue tracker linked from the Marketplace page
