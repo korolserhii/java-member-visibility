@@ -1,0 +1,57 @@
+{
+  "name": "java-member-visibility",
+  "displayName": "Java Member Visibility",
+  "description": "See which Java methods and fields are public, protected, package-private or private at a glance — a members panel next to Outline with UML visibility marks (+ # ~ −) and colors.",
+  "version": "0.1.1",
+  "publisher": "korolserhii",
+  "author": "Korol Serhii",
+  "repository": { "type": "git", "url": "https://github.com/korolserhii/java-member-visibility" },
+  "bugs": { "url": "https://github.com/korolserhii/java-member-visibility/issues" },
+  "homepage": "https://github.com/korolserhii/java-member-visibility#readme",
+  "license": "MIT",
+  "engines": { "vscode": "^1.75.0" },
+  "categories": ["Programming Languages", "Visualization", "Other"],
+  "keywords": ["java", "outline", "visibility", "access modifiers", "public", "private", "protected", "package-private"],
+  "activationEvents": ["onLanguage:java"],
+  "main": "./extension.js",
+  "contributes": {
+    "views": {
+      "explorer": [
+        { "id": "javaVisibility.members", "name": "Java Members", "icon": "$(symbol-class)", "contextualTitle": "Java Members" }
+      ]
+    },
+    "commands": [
+      { "command": "javaVisibility.filter", "title": "Filter by visibility", "category": "Java Members", "icon": "$(filter)" },
+      { "command": "javaVisibility.sort", "title": "Toggle sort: source order / visibility", "category": "Java Members", "icon": "$(list-ordered)" },
+      { "command": "javaVisibility.refresh", "title": "Refresh", "category": "Java Members", "icon": "$(refresh)" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "javaVisibility.filter", "when": "view == javaVisibility.members", "group": "navigation@1" },
+        { "command": "javaVisibility.sort", "when": "view == javaVisibility.members", "group": "navigation@2" },
+        { "command": "javaVisibility.refresh", "when": "view == javaVisibility.members", "group": "navigation@3" }
+      ],
+      "commandPalette": [
+        { "command": "javaVisibility.filter" }, { "command": "javaVisibility.sort" }, { "command": "javaVisibility.refresh" }
+      ]
+    },
+    "configuration": {
+      "title": "Java Member Visibility",
+      "properties": {
+        "javaVisibility.filter": {
+          "type": "string", "enum": ["all", "api", "public"], "default": "all",
+          "enumDescriptions": ["All members", "Public API: public + protected", "Public only"],
+          "description": "Which members the Java Members panel shows."
+        },
+        "javaVisibility.sort": {
+          "type": "string", "enum": ["source", "visibility"], "default": "source",
+          "enumDescriptions": ["Order as in the file", "public → protected → package → private"],
+          "description": "Order of members in the Java Members panel."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node --test test/visibility.test.js test/extension.test.js"
+  }
+}
